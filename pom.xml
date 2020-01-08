@@ -32,21 +32,26 @@
     </scm>
 
     <issueManagement>
-        <system>GitHub Issues</system>
+        <system>github</system>
         <url>https://github.com/ruffkat/urlmock/issues</url>
     </issueManagement>
+
+    <ciManagement>
+        <system>travis</system>
+        <url>https://travis-ci.com/ruffkat/urlmock</url>
+    </ciManagement>
 
     <distributionManagement>
         <site>
             <id>wiki</id>
-            <url>https://github.com/ruffkat/urlmock/wiki</url>
+            <url>gitsite:git@github.com/ruffkat/urlmock.git</url>
         </site>
         <snapshotRepository>
-            <id>ossrh</id>
+            <id>ossrh-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
-            <id>ossrh</id>
+            <id>ossrh-releases</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </repository>
     </distributionManagement>
@@ -62,6 +67,7 @@
         <maven.source.version>3.2.1</maven.source.version>
         <!-- Build Properties -->
         <java.version>1.8</java.version>
+        <gpg.keyname>C36060C6ED9EA32496535F1A521206E4F86C6970</gpg.keyname>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -142,5 +148,29 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>gpg-sign</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
