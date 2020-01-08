@@ -36,6 +36,21 @@
         <url>https://github.com/ruffkat/urlmock/issues</url>
     </issueManagement>
 
+    <distributionManagement>
+        <site>
+            <id>wiki</id>
+            <url>https://github.com/ruffkat/urlmock/wiki</url>
+        </site>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+    </distributionManagement>
+
     <properties>
         <!-- Dependency Versions -->
         <assertj.version>3.13.2</assertj.version>
