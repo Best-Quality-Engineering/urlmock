@@ -67,7 +67,6 @@
         <maven.source.version>3.2.1</maven.source.version>
         <!-- Build Properties -->
         <java.version>1.8</java.version>
-        <gpg.keyname>C36060C6ED9EA32496535F1A521206E4F86C6970</gpg.keyname>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -151,7 +150,15 @@
 
     <profiles>
         <profile>
-            <id>release</id>
+            <id>maven-central</id>
+            <properties>
+                <gpg.keyname>C36060C6ED9EA32496535F1A521206E4F86C6970</gpg.keyname>
+                <gpg.passphraseServerId>signing-key</gpg.passphraseServerId>
+                <gpg.defaultKeyring>false</gpg.defaultKeyring>
+                <gpg.homedir>${project.basedir}/deployment</gpg.homedir>
+                <gpg.publicKeyring>pubring.gpg</gpg.publicKeyring>
+                <gpg.secretKeyring>secring.gpg</gpg.secretKeyring>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
