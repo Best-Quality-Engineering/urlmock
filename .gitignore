@@ -2,4 +2,4 @@
 target/
 *.iml
 *.asc
-*.gpg
+*.gpg*
