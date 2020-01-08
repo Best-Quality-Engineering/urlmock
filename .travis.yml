@@ -7,6 +7,6 @@ language: java
 before_install:
   - openssl aes-256-cbc -K $encrypted_59cd562a81f9_key -iv $encrypted_59cd562a81f9_iv
     -in deployment/signingkey.asc.enc -out deployment/signingkey.asc -d
-  - gpg2 --batch --keyring=deployment/pubring.gpg --no-default-keyring --import deployment/signingkey.asc
-  - gpg2 --batch --allow-secret-key-import --keyring=deployment/secring.gpg --no-default-keyring --import deployment/signingkey.asc
+  - gpg2 --batch --keyring=$TRAVIS_BUILD_DIR/pubring.gpg --no-default-keyring --import deployment/signingkey.asc
+  - gpg2 --batch --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring --allow-secret-key-import --import deployment/signingkey.asc
 install: mvn deploy -P maven-central
