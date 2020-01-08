@@ -7,6 +7,6 @@ language: java
 before_install:
   - openssl aes-256-cbc -K $encrypted_59cd562a81f9_key -iv $encrypted_59cd562a81f9_iv
     -in deployment/signingkey.asc.enc -out deployment/signingkey.asc -d
-  - gpg2 --keyring=$TRAVIS_BUILD_DIR/pubring.gpg --no-default-keyring --import deployment/signingkey.asc
-  - gpg2 --allow-secret-key-import --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring --import deployment/signingkey.asc
+  - gpg2 --keyring=$TRAVIS_BUILD_DIR/pubring.gpg --no-default-keyring --import deployment/signingkey.asc << $PASSPHRASE
+  - gpg2 --allow-secret-key-import --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring --import deployment/signingkey.asc << $PASSPHRASE
 install: mvn clean deploy -Dgpg.executable=gpg2 -Dgpg.keyname=C36060C6ED9EA32496535F1A521206E4F86C6970 -Dgpg.passphrase=$PASSPHRASE -Dgpg.publicKeyring=$TRAVIS_BUILD_DIR/pubring.gpg -Dgpg.secretKeyring=$TRAVIS_BUILD_DIR/secring.gpg
