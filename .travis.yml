@@ -1,7 +1,6 @@
 # Environment
 dist: bionic
 language: java
-jdk: oraclejdk8
 
 # Setup the artifact signing key; it will be used to publish snapshots and releases
 before_install:
