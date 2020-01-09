@@ -4,7 +4,9 @@ language: java
 
 # Setup the artifact signing key; it will be used to publish snapshots and releases
 before_install:
-  - gpg2 --batch --no-default-keyring --allow-secret-key-import --import < ${ARTIFACT_SIGNING_KEY}
+  - openssl aes-256-cbc -K $encrypted_59cd562a81f9_key -iv $encrypted_59cd562a81f9_iv
+    -in build/artifact-signing-key.asc.enc -out build/artifact-signing-key.asc -d
+  - gpg2 --batch --no-default-keyring --allow-secret-key-import --import build/artifact-signing-key.asc
 
 # Deploy snapshot build
 script: build/deploy.sh
