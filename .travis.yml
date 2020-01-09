@@ -1,10 +1,11 @@
 dist: bionic
 language: java
+# Setup GnuPG for artifact signing
 before_install:
   - openssl aes-256-cbc -K $encrypted_59cd562a81f9_key -iv $encrypted_59cd562a81f9_iv
     -in deployment/artifact-signing-key.asc.enc -out deployment/artifact-signing-key.asc -d
-install: ./mvnw clean install
-after_success:
   - gpg2 --batch --no-default-keyring --import deployment/artifact-signing-key.asc
   - gpg2 --batch --no-default-keyring --allow-secret-key-import --import deployment/artifact-signing-key.asc
+install: ./mvnw clean install
+after_success:
   - ./mvnw deploy -settings deployment/settings.xml -P ossrh
