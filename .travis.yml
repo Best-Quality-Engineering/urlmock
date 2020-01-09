@@ -9,15 +9,15 @@ before_script:
   - gpg2 --batch --no-default-keyring --allow-secret-key-import --import .mvn/artifact-signing-key.asc
 
 # Deploy snapshot build to OSSRH
-script: ./mvnw deploy -settings .mvn/settings.xml -P ossrh
+script: ./mvnw -q -e deploy -settings .mvn/settings.xml -P ossrh
 
 # Deploy release build
 deploy:
   - on:
       tags: true
     provider: script
-    script: ./mvnw versions:set -DnewVersion=${TRAVIS_TAG}
+    script: ./mvnw -q -e versions:set -DnewVersion=${TRAVIS_TAG}
   - on:
       tags: true
     provider: script
-    script: ./mvnw deploy -settings .mvn/settings.xml -P ossrh
+    script: ./mvnw -q -e clean deploy -settings .mvn/settings.xml -P ossrh
