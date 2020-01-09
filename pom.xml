@@ -4,7 +4,7 @@
 
     <groupId>io.bestquality</groupId>
     <artifactId>urlmock</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <name>Url Mock</name>
 
     <url>https://github.com/ruffkat/urlmock</url>
@@ -28,7 +28,7 @@
         <connection>scm:git:git://github.com/ruffkat/urlmock.git</connection>
         <developerConnection>scm:git:git@github.com:ruffkat/urlmock.git</developerConnection>
         <url>https://github.com/ruffkat/urlmock</url>
-        <tag>HEAD</tag>
+        <tag>urlmock-0.0.2</tag>
     </scm>
 
     <issueManagement>
