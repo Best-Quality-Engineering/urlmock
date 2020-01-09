@@ -1,4 +1,4 @@
-package engineering.bestquality.protocol.mock;
+package io.bestquality.protocol.mock;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import static engineering.bestquality.protocol.mock.MockConnectionRegistry.clearMockConnections;
-import static engineering.bestquality.protocol.mock.MockConnectionRegistry.installProtocolHandlers;
-import static engineering.bestquality.protocol.mock.MockConnectionRegistry.registerMockConnection;
+import static io.bestquality.protocol.mock.MockConnectionRegistry.clearMockConnections;
+import static io.bestquality.protocol.mock.MockConnectionRegistry.installProtocolHandlers;
+import static io.bestquality.protocol.mock.MockConnectionRegistry.registerMockConnection;
 import static java.net.Proxy.NO_PROXY;
 import static java.util.regex.Pattern.compile;
 import static org.assertj.core.api.Assertions.assertThat;

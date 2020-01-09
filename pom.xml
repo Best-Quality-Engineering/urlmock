@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>engineering.bestquality</groupId>
+    <groupId>io.bestquality</groupId>
     <artifactId>urlmock</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Url Mock</name>
@@ -29,6 +29,7 @@
         <connection>scm:git:git://github.com/ruffkat/urlmock.git</connection>
         <developerConnection>scm:git:git@github.com:ruffkat/urlmock.git</developerConnection>
         <url>https://github.com/ruffkat/urlmock</url>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
@@ -41,27 +42,13 @@
         <url>https://travis-ci.com/ruffkat/urlmock</url>
     </ciManagement>
 
-    <distributionManagement>
-        <site>
-            <id>wiki</id>
-            <url>gitsite:git@github.com/ruffkat/urlmock.git</url>
-        </site>
-        <snapshotRepository>
-            <id>ossrh-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh-releases</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>
-    </distributionManagement>
-
     <properties>
         <!-- Dependency Versions -->
         <assertj.version>3.13.2</assertj.version>
         <junit.version>4.12</junit.version>
         <mockito.version>3.2.4</mockito.version>
         <!-- Plugin Versions -->
+        <maven.gpg.version>1.6</maven.gpg.version>
         <maven.jacoco.version>0.8.5</maven.jacoco.version>
         <maven.jar.version>3.2.0</maven.jar.version>
         <maven.source.version>3.2.1</maven.source.version>
@@ -150,24 +137,41 @@
 
     <profiles>
         <profile>
-            <id>maven-central</id>
-            <properties>
-                <gpg.keyname>C36060C6ED9EA32496535F1A521206E4F86C6970</gpg.keyname>
-                <gpg.passphraseServerId>signing-key</gpg.passphraseServerId>
-                <gpg.defaultKeyring>false</gpg.defaultKeyring>
-                <gpg.homedir>${env.TRAVIS_BUILD_DIR}</gpg.homedir>
-                <gpg.publicKeyring>pubring.gpg</gpg.publicKeyring>
-                <gpg.secretKeyring>secring.gpg</gpg.secretKeyring>
-            </properties>
+            <id>ossrh</id>
+            <distributionManagement>
+                <site>
+                    <id>wiki</id>
+                    <url>gitsite:git@github.com/ruffkat/urlmock.git</url>
+                </site>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+                </repository>
+            </distributionManagement>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>${maven.gpg.version}</version>
+                        <configuration>
+                            <executable>gpg2</executable>
+                            <defaultKeyring>true</defaultKeyring>
+                            <keyname>${env.ARTIFACT_SIGNING_KEY_FINGERPRINT}</keyname>
+                            <passphrase>${env.ARTIFACT_SIGNING_KEY_PASSPHRASE}</passphrase>
+                            <!-- GPG 2.1 requires pinentry-mode to be set to loopback in order to pick up gpg.passphrase -->
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
                         <executions>
                             <execution>
-                                <id>gpg-sign</id>
+                                <id>sign-artifacts</id>
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>

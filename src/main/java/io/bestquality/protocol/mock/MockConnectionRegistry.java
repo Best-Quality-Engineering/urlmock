@@ -1,4 +1,4 @@
-package engineering.bestquality.protocol.mock;
+package io.bestquality.protocol.mock;
 
 import java.io.IOException;
 import java.net.URL;
@@ -17,7 +17,7 @@ public class MockConnectionRegistry {
             = new LinkedHashMap<>();
 
     public static void installProtocolHandlers() {
-        setProperty("java.protocol.handler.pkgs", "engineering.bestquality.protocol");
+        setProperty("java.protocol.handler.pkgs", "io.bestquality.protocol");
     }
 
     public static URLConnection findMockConnection(URL url)

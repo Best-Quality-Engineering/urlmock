@@ -1,4 +1,4 @@
-package engineering.bestquality.protocol.mock;
+package io.bestquality.protocol.mock;
 
 import java.io.IOException;
 import java.net.Proxy;
@@ -6,7 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
 
-import static engineering.bestquality.protocol.mock.MockConnectionRegistry.findMockConnection;
+import static io.bestquality.protocol.mock.MockConnectionRegistry.findMockConnection;
 
 /**
  * This class handles all URLs using the "mock:" scheme

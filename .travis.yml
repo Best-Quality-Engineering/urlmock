@@ -1,12 +1,9 @@
-env:
-  global:
-    - secure: C+kvC3pgTsybcbcZgD2AnvzbkaXp5v/HGC87c6SkvaeG6WEflk9vmLHQ/vowjHhSmniOD0tGxm50KQFXMGDgQIWfpT0681LF184ykwkXecaV9ri0KvSnmuqG/knEmecBbxw+uNFJxjKNw4T/jB25AtJADxP1/K4ZrM/si2lLogEV2VG6BqLdVa8ifkpzuwFT995DS1FNB8K3Sy8DEecr4VkB82roawxN6UtTC8ixlCellGYPsSBfseJsydEtnIAnnto+TinNVzu3RPmFEpn5lPQzsj6lkp74mFiAI8oPmHdp4204dbFjJi7bppj+SPUFPaBBs1D9kBD0103blthMLQQx4boGxoWVA5UKEV0Ks2mJiyHzoII3llB9JUR70ZJ1OM+OgIdcVDzT/c51OfJEx7Vfl44XUTQOrEkhyTgMoCajJ4E6HkBAX2EH2NQB8jzt44UVkwonw9NtJGhqRgMKbq1/wiw2wfJiQlyu3ePVvwhDREKuIEfm6SSvHJxnE5XDXg7Olg94uQaApnfOo9B7hFDY6VN4dA2rJ3h3Qv87aFx1/7q43XJsjKB9J6k++MFITjT1wzAb9Mj6vwtZtpE76BoJxRAlJDYK6DhgKESeWlqWEMjwplPlKQh0tQYCuVEpeoGLKf4C8VbCBBcdqKX2eXai9X+BhGVd7xibDvEal0Y=
-    - secure: zHceLNQoNLU1lbfgdW0Kb9d/t9rMGcxD4lNU40MGpGLhZid7UiCN96pfotbJS3XicQEoQ4uF7fcKFm3b43hBbn10Do7TTfieIXQjbjMU50IKxHefGSaYWFV7PxuOTw3O/mUffjnpcOAhzbMeKDB4lBFOqm8v8NZsj2pwUQgZlNxjyipea0sTM+12OVPU+jyl8YvJWX3GUBRK0AQF7CReJhU4kWkKwvrl6VnpAIXQZbjmh2J1KIugvR33SVw4GH1XRmaO8QR7k9s/KJ/rLY8thk6h9fGHsFA21J/sEaJL+5nfNuPecX0dSUcpQbT/Ft5RVa2P+ELGWa0PoaHTwEfIfNWjo5Fwy3vZD60e+mscjCK9j41zYms1hJCXOlduAafYQaAGkISxkMbHmkDugsM9sjTRL6X8oOi7hlWAjW7dN8mP8LtvA1JpvKVkZfZwSe6S4sWxXPQ3ghA8NWAd7nlCb9GMH6wCwsY35Lg+bd+l6PDV8sJjPzLj21vfEppk08mH57pzfdlSuYuAtfVIVVdGILVvbwrqpWy17dV1WLslp0rrLs8UckFI9EHUzhFBwtCA7zUbnWsYDYLBwxc+9zAU7UpWWycXIKMqILjDAixbop3zdQFEPuZUcLAaTxK+GtQkAaU2plPtGv2KhswZBlTzuKxSXf0g3muBrEwmTQraw8g=
-    - secure: HYyxMUyzm7mgXJjimLSunhxxaRqAitzqMET0zQ7OEnqtBAPxp/tLRos/kL1NisXnOC7bpyi4VDitEQYOxWoUF1Yn3RXZxrfbkjefQsBrfVl6CNIJ4DuPRTuUJDla88XDRZAx2VM9ND3pTmdAxvurXiZzILuJ/sNMpW1CPlzYinZG+D2GcTdaNl/geJtIJjwCs8q7F/y7yRj1IMGiCEq5MbSP5/MDSQsyp0kd8J4y+esHwYumQHgJ8t4YYEFmzCPoBCu+YYKXfDySS/Z/Y3yxqImApY5Z2APdkCkr2lUk4taeZF4ml6V851tJhz7gmL2vcYTD3pGxQotDqZ2NZJl5ENmgcfZnxKDjJuv7TWY2U6MVJWBhoLOjpwE9u/7tdgBWl+pzbyqF4UELjskUZdt52D76y5EC7o185KZtsZzYgkrN1DIRg+MpSvMrBfiSFtwAt5kluPbfqJgKqBXiw5BsWj2N8nDdLDsitIBQYF58nYIJgeIResvOggIT/Urd7o9a7Q4+CDn9CyA4MvBcSWZVovxGk5gOHxYjK3nLWGTDNVzROf5ONI7JQ3nnaDt50RAj1/6FM3Qyeyg98YPma33oHgiortgrrvqHis8E/W4bJ+VW7gkXnLWCrrpijAXPZmI5Ec9t0lqNHGhpaLE7i5Iy35jwVXdZbix7QgRbtM0fv5c=
 language: java
 before_install:
   - openssl aes-256-cbc -K $encrypted_59cd562a81f9_key -iv $encrypted_59cd562a81f9_iv
-    -in deployment/signingkey.asc.enc -out deployment/signingkey.asc -d
-  - gpg2 --batch --keyring=$TRAVIS_BUILD_DIR/pubring.gpg --no-default-keyring --import deployment/signingkey.asc
-  - gpg2 --batch --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring --allow-secret-key-import --import deployment/signingkey.asc
-install: mvn deploy -P maven-central
+    -in deployment/artifact-signing-key.asc.enc -out deployment/artifact-signing-key.asc -d
+install: mvnw clean install
+after_success:
+  - gpg2 --batch --no-default-keyring --import deployment/artifact-signing-key.asc
+  - gpg2 --batch --no-default-keyring --allow-secret-key-import --import deployment/artifact-signing-key.asc
+  - mvnw deploy -settings deployment/settings.xml -P ossrh
