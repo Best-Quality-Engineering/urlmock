@@ -1,11 +1,18 @@
+# Environment
 dist: bionic
 language: java
-# Setup GnuPG for artifact signing
+jdk: oraclejdk8
+
+# Setup the artifact signing key; it will be used to publish snapshots and releases
 before_install:
-  - openssl aes-256-cbc -K $encrypted_59cd562a81f9_key -iv $encrypted_59cd562a81f9_iv
-    -in deployment/artifact-signing-key.asc.enc -out deployment/artifact-signing-key.asc -d
-  - gpg2 --batch --no-default-keyring --import deployment/artifact-signing-key.asc
-  - gpg2 --batch --no-default-keyring --allow-secret-key-import --import deployment/artifact-signing-key.asc
-install: ./mvnw clean install
-after_success:
-  - ./mvnw deploy -settings deployment/settings.xml -P ossrh
+  - gpg2 --batch --no-default-keyring --allow-secret-key-import --import < ${ARTIFACT_SIGNING_KEY}
+
+# Deploy snapshot build
+script: build/deploy.sh
+
+# Deploy release build
+deploy:
+  on:
+    tags: true
+  provider: script
+  script: build/release.sh
