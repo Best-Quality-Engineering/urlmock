@@ -2,8 +2,8 @@
 dist: bionic
 language: java
 
-# Acquire dependencies
-install: ./mvnw -q -e install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+# Pre-download all maven dependencies
+install: ./mvnw -q -e dependency:go-offline
 
 # Setup the artifact signing key; it will be used to publish snapshots and releases
 before_script:
@@ -11,16 +11,24 @@ before_script:
     -in .mvn/artifact-signing-key.asc.enc -out .mvn/artifact-signing-key.asc -d
   - gpg2 --batch --no-default-keyring --allow-secret-key-import --import .mvn/artifact-signing-key.asc
 
-# Deploy snapshot build to OSSRH
+# Deploy snapshot artifacts to OSSRH
 script: ./mvnw -q -e deploy -settings .mvn/settings.xml -P ossrh
 
 # Deploy release build
 deploy:
+  # Set the version
   - on:
       tags: true
     provider: script
-    script: ./mvnw -q -e versions:set -DnewVersion=${TRAVIS_TAG}
+    script: ./mvnw -e versions:set -DnewVersion=${TRAVIS_TAG} -DgenerateBackupPoms=false
+  # Clean and deploy the release artifacts to OSSRH
   - on:
       tags: true
     provider: script
     script: ./mvnw -q -e clean deploy -settings .mvn/settings.xml -P ossrh
+  # Set the next snapshot version
+  - on:
+      tags: true
+    provider: script
+    script: ./mvnw -e release:update-versions -B
+  # Push changes to git
