@@ -28,7 +28,7 @@
         <connection>scm:git:git://github.com/ruffkat/urlmock.git</connection>
         <developerConnection>scm:git:git@github.com:ruffkat/urlmock.git</developerConnection>
         <url>https://github.com/ruffkat/urlmock</url>
-        <tag>urlmock-0.0.2</tag>
+        <tag>0.0.2</tag>
     </scm>
 
     <issueManagement>
@@ -110,6 +110,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <tagNameFormat>${project.version}</tagNameFormat>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
