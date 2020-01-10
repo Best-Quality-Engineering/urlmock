@@ -160,8 +160,8 @@
                         <configuration>
                             <executable>gpg2</executable>
                             <defaultKeyring>true</defaultKeyring>
-                            <keyname>${env.ARTIFACT_SIGNING_KEY_FINGERPRINT}</keyname>
-                            <passphrase>${env.ARTIFACT_SIGNING_KEY_PASSPHRASE}</passphrase>
+                            <keyname>${env.CODE_SIGNING_KEY_FINGERPRINT}</keyname>
+                            <passphrase>${env.CODE_SIGNING_KEY_PASSPHRASE}</passphrase>
                             <!-- GPG 2.1 requires pinentry-mode to be set to loopback in order to pick up gpg.passphrase -->
                             <gpgArguments>
                                 <arg>--pinentry-mode</arg>
