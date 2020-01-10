@@ -10,9 +10,10 @@ before_script:
   - openssl aes-256-cbc -K $encrypted_59cd562a81f9_key -iv $encrypted_59cd562a81f9_iv
     -in deploy/code-signing-key.asc.enc -out deploy/code-signing-key.asc -d
   - gpg2 --batch --no-default-keyring --allow-secret-key-import --import deploy/code-signing-key.asc
+  - export PATH=${PATH}:.
 
 # Deploy snapshot artifacts to OSSRH
-script: ./mvnw -q -e deploy -settings .mvn/settings.xml -P ossrh
+script: mvnw -q -e deploy -settings .mvn/settings.xml -P ossrh
 
 # Set up git user name and tag this commit
 before_deploy:
@@ -23,23 +24,7 @@ before_deploy:
 
 # Deploy release build
 deploy:
-  # Set the version
   - on:
       tags: true
     provider: script
-    script: ./mvnw -e versions:set -DnewVersion=${TRAVIS_TAG} -DgenerateBackupPoms=false
-  # Clean and deploy the release artifacts to OSSRH
-  - on:
-      tags: true
-    provider: script
-    script: ./mvnw -q -e clean deploy -settings .mvn/settings.xml -P ossrh
-  # Set the next snapshot version
-  - on:
-      tags: true
-    provider: script
-    script: ./mvnw -e release:update-versions -B
-  # Push changes to git
-  - on:
-      tags: true
-    provider: script
-    script: deploy/commit-release.sh
+    script: deploy/release.sh
