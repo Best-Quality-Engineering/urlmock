@@ -2,20 +2,23 @@
 dist: bionic
 language: java
 
+# Set up path
+before_install:
+  - export PATH=${PATH}:.
+
 # Pre-download all maven dependencies
-install: ./mvnw -q -e dependency:go-offline
+install: mvnw -e dependency:go-offline
 
 # Setup the code signing key; it will be used to publish snapshots and releases
 before_script:
   - openssl aes-256-cbc -K $encrypted_59cd562a81f9_key -iv $encrypted_59cd562a81f9_iv
     -in deploy/code-signing-key.asc.enc -out deploy/code-signing-key.asc -d
   - gpg2 --batch --no-default-keyring --allow-secret-key-import --import deploy/code-signing-key.asc
-  - export PATH=${PATH}:.
 
 # Deploy snapshot artifacts to OSSRH
-script: mvnw -q -e deploy -settings .mvn/settings.xml -P ossrh
+script: mvnw -e deploy -settings .mvn/settings.xml -P ossrh
 
-# Set up git user name and tag this commit
+# Set up git to commit pom changes
 before_deploy:
   - openssl aes-256-cbc -K $encrypted_59cd562a81f9_key -iv $encrypted_59cd562a81f9_iv
     -in deploy/id_rsa.enc -out ~/.ssh/id_rsa -d
@@ -28,3 +31,4 @@ deploy:
       tags: true
     provider: script
     script: deploy/release.sh
+    skip_cleanup: true

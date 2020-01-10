@@ -2,7 +2,7 @@
 # Set the version to build
 mvnw -e versions:set -DnewVersion=${TRAVIS_TAG} -DgenerateBackupPoms=false
 # Build, install, test then publish the artifacts
-mvnw -q -e clean deploy -settings .mvn/settings.xml -P ossrh
+mvnw -e clean deploy -settings .mvn/settings.xml -P ossrh
 # Set the next development snapshot version
 mvnw -e release:update-versions -B
 # Commit the changes
