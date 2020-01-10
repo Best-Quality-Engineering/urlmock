@@ -9,5 +9,5 @@ mvnw release:update-versions -e -B --no-transfer-progress -P ossrh
 git checkout -b release/${TRAVIS_TAG}
 git add pom.xml
 git commit --message "Next development version (build: ${TRAVIS_BUILD_NUMBER})"
-git remote add urlmock-origin git@github.com:ruffkat/urlmock.git >/dev/null 2>&1
-git push --set-upstream urlmock-origin master --quiet
+git remote add urlmock-origin git@github.com:ruffkat/urlmock.git
+git push -u urlmock-origin master

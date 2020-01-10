@@ -48,6 +48,7 @@
         <junit.version>4.12</junit.version>
         <mockito.version>3.2.4</mockito.version>
         <!-- Plugin Versions -->
+        <codehaus.versions.version>2.7</codehaus.versions.version>
         <maven.gpg.version>1.6</maven.gpg.version>
         <maven.jacoco.version>0.8.5</maven.jacoco.version>
         <maven.jar.version>3.2.0</maven.jar.version>
@@ -140,6 +141,11 @@
                     <skip>true</skip>
                     <skipDeploy>true</skipDeploy>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${codehaus.versions.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>

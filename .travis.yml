@@ -15,7 +15,8 @@ before_script:
     -in deploy/code-signing-key.asc.enc -out deploy/code-signing-key.asc -d
   - gpg2 --batch --no-default-keyring --allow-secret-key-import --import deploy/code-signing-key.asc
 
-# Integrate the latest and deploy snapshot artifacts to OSSRH
+# Integrate the latest and deploy snapshot artifacts to OSSRH. The script
+# returns a success exit code to ensure build proceeds to deploy stage
 script: deploy/snapshot.sh
 
 # Enable changes resulting from a release to be committed
