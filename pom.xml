@@ -27,8 +27,8 @@
     <scm>
         <connection>scm:git:git://github.com/ruffkat/urlmock.git</connection>
         <developerConnection>scm:git:git@github.com:ruffkat/urlmock.git</developerConnection>
-        <url>https://github.com/ruffkat/urlmock</url>
-        <tag>0.0.2</tag>
+        <url>git@github.com:ruffkat/urlmock.git</url>
+        <tag>0.0.3</tag>
     </scm>
 
     <issueManagement>
