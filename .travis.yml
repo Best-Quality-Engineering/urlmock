@@ -7,7 +7,7 @@ before_install:
   - export PATH=${PATH}:.
 
 # Pre-download all maven dependencies
-install: mvnw dependency:go-offline -e -B --no-transfer-progress
+install: mvnw dependency:go-offline -e -B -ntp
 
 # Setup the code signing key; it will be used to publish snapshots and releases
 before_script:
