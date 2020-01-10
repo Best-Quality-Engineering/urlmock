@@ -1,8 +1,5 @@
 #!/bin/bash
-# Setup git
-git remote add ssh-origin git@github.com:ruffkat/urlmock.git
-# Create a new branch to retain the commits since repo is in a detached head state
-git switch -c release/${TRAVIS_TAG}
+echo "Releasing ${TRAVIS_TAG}"
 # Set the version to build
 mvnw versions:set -e -B -ntp -DnewVersion=${TRAVIS_TAG} -DgenerateBackupPoms=false
 # Build, install, test then publish the artifacts
