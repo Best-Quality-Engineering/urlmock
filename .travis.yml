@@ -7,7 +7,7 @@ before_install:
   - export PATH=${PATH}:.
 
 # Pre-download all maven dependencies
-install: mvnw -e dependency:go-offline
+install: mvnw -e --no-transfer-progress dependency:go-offline
 
 # Setup the code signing key; it will be used to publish snapshots and releases
 before_script:
@@ -16,7 +16,7 @@ before_script:
   - gpg2 --batch --no-default-keyring --allow-secret-key-import --import deploy/code-signing-key.asc
 
 # Deploy snapshot artifacts to OSSRH
-script: mvnw -e deploy -settings .mvn/settings.xml -P ossrh
+script: mvnw -e --no-transfer-progress deploy -settings .mvn/settings.xml -P ossrh
 
 # Set up git to commit pom changes
 before_deploy:

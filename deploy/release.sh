@@ -1,10 +1,10 @@
 #!/bin/bash
 # Set the version to build
-mvnw -e versions:set -DnewVersion=${TRAVIS_TAG} -DgenerateBackupPoms=false
+mvnw -e --no-transfer-progress versions:set -DnewVersion=${TRAVIS_TAG} -DgenerateBackupPoms=false
 # Build, install, test then publish the artifacts
-mvnw -e clean deploy -settings .mvn/settings.xml -P ossrh
+mvnw -e --no-transfer-progress clean deploy -settings .mvn/settings.xml -P ossrh
 # Set the next development snapshot version
-mvnw -e release:update-versions -B
+mvnw -e --no-transfer-progress release:update-versions -B
 # Commit the changes
 git add pom.xml
 git commit --message "Next development version (build: ${TRAVIS_BUILD_NUMBER})"
