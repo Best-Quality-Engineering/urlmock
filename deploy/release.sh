@@ -1,13 +1,21 @@
 #!/bin/bash
+# Setup git
+git remote add ssh-origin git@github.com:ruffkat/urlmock.git
+# Create a new branch to retain the commits since repo is in a detached head state
+git switch -c release/${TRAVIS_TAG}
 # Set the version to build
 mvnw versions:set -e -B -ntp -DnewVersion=${TRAVIS_TAG} -DgenerateBackupPoms=false
 # Build, install, test then publish the artifacts
 mvnw clean deploy -e -B -ntp -settings .mvn/settings.xml -P ossrh
+# Commit release changes
+git add pom.xml
+git commit --message "Release ${TRAVIS_TAG} (build: ${TRAVIS_BUILD_NUMBER})"
 # Set the next development snapshot version
 mvnw release:update-versions -e -B -ntp -P ossrh
+# Capture the snapshot version
+SNAPSHOT=$(mvnw org.apache.maven.plugins:maven-help-plugin:evaluate -Dexpression=project.version | egrep -v "(^\[INFO\])")
 # Commit the changes
-git checkout -b release/${TRAVIS_TAG}
 git add pom.xml
-git commit --message "Next development version (build: ${TRAVIS_BUILD_NUMBER})"
-git remote add urlmock-origin git@github.com:ruffkat/urlmock.git
-git push -u urlmock-origin master
+git commit --message "Snapshot ${SNAPSHOT} (build: ${TRAVIS_BUILD_NUMBER})"
+# Push changes to origin
+git push -u ssh-origin master
