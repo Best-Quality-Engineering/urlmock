@@ -7,7 +7,7 @@ before_install:
   - export PATH=${PATH}:.
 
 # Pre-download all maven dependencies
-install: mvnw -e -B dependency:go-offline
+install: mvnw dependency:go-offline -e -B
 
 # Setup the code signing key; it will be used to publish snapshots and releases
 before_script:
@@ -15,17 +15,17 @@ before_script:
     -in deploy/code-signing-key.asc.enc -out deploy/code-signing-key.asc -d
   - gpg2 --batch --no-default-keyring --allow-secret-key-import --import deploy/code-signing-key.asc
 
-# Deploy snapshot artifacts to OSSRH
-script: mvnw -e -B deploy -settings .mvn/settings.xml -P ossrh
+# Integrate the latest and deploy snapshot artifacts to OSSRH
+script: mvnw deploy -e -B -settings .mvn/settings.xml -P ossrh
 
-# Set up git to commit pom changes
+# Enable changes resulting from a release to be committed
 before_deploy:
   - openssl aes-256-cbc -K $encrypted_59cd562a81f9_key -iv $encrypted_59cd562a81f9_iv
     -in deploy/id_rsa.enc -out ~/.ssh/id_rsa -d
   - git config --local user.name "Travis CI"
   - git config --local user.email "travis@travis-ci.com"
 
-# Deploy release build
+# Perform a release when the repository has been tagged
 deploy:
   - on:
       tags: true
