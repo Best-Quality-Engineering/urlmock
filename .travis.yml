@@ -16,7 +16,7 @@ before_script:
   - gpg2 --batch --no-default-keyring --allow-secret-key-import --import deploy/code-signing-key.asc
 
 # Integrate the latest and deploy snapshot artifacts to OSSRH
-script: (NOT env(TRAVIS_TAG) AND mvnw deploy -e -B --no-transfer-progress -settings .mvn/settings.xml -P ossrh) OR true
+script: mvnw deploy -e -B --no-transfer-progress -settings .mvn/settings.xml -P ossrh
 
 # Enable changes resulting from a release to be committed
 before_deploy:
