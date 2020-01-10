@@ -10,4 +10,4 @@ git checkout -b release/${TRAVIS_TAG}
 git add pom.xml
 git commit --message "Next development version (build: ${TRAVIS_BUILD_NUMBER})"
 git remote add urlmock-origin git@github.com:ruffkat/urlmock.git >/dev/null 2>&1
-git push --set-upstream urlmock-origin release/${TRAVIS_TAG} --quiet
+git push --set-upstream urlmock-origin master --quiet
