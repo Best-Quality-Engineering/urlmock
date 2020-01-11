@@ -2,7 +2,7 @@
 os: linux
 arch: arm64
 
-# Application Environment
+# Build Environment
 dist: bionic
 language: java
 cache:
