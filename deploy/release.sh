@@ -1,5 +1,7 @@
 #!/bin/bash
 echo "Releasing ${TRAVIS_TAG}"
+# Switch to a non-detached branch
+git switch -c release/${TRAVIS_TAG}
 # Set the version to build
 mvnw versions:set -e -B -ntp -DnewVersion=${TRAVIS_TAG} -DgenerateBackupPoms=false
 # Build, install, test then publish the artifacts

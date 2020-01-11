@@ -2,6 +2,7 @@
 dist: bionic
 language: java
 
+# Prerequisites
 before_install:
   # Set up path
   - export PATH=${PATH}:.
@@ -24,10 +25,6 @@ install: mvnw dependency:go-offline -e -B -ntp
 # Integrate the latest and deploy snapshot artifacts to OSSRH. The script
 # returns a success exit code to ensure build proceeds to deploy stage
 script: deploy/snapshot.sh
-
-# Enable changes resulting from a release to be committed
-before_deploy:
-  - git switch -c release/${TRAVIS_TAG}
 
 # Perform a release when the repository has been tagged
 deploy:
