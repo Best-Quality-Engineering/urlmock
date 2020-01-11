@@ -26,16 +26,16 @@ before_install:
   - git remote add ssh-origin git@github.com:${TRAVIS_REPO_SLUG}.git
 
 # Pre-download all maven dependencies
-install: mvnw dependency:go-offline -e -B -ntp
+install: mvnw -e -B -ntp -settings .mvn/settings.xml -P ossrh dependency:go-offline
 
 # Integrate the latest and deploy snapshot artifacts to OSSRH. The script
 # returns a success exit code to ensure build proceeds to deploy stage
-script: deploy/snapshot.sh
+script: deploy/deploy-branch.sh
 
 # Perform a release when the repository has been tagged
 deploy:
   - provider: script
-    script: deploy/release.sh
+    script: deploy/release-tag.sh
     skip_cleanup: true
     on:
       tags: true
