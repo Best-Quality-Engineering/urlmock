@@ -4,7 +4,7 @@
 
     <groupId>io.bestquality</groupId>
     <artifactId>urlmock</artifactId>
-    <version>0.0.12</version>
+    <version>0.0.13-SNAPSHOT</version>
     <name>Url Mock</name>
     <description>Url mocking library for java.net.URL</description>
 
@@ -29,7 +29,7 @@
         <connection>scm:git:git://github.com/ruffkat/urlmock.git</connection>
         <developerConnection>scm:git:git@github.com:ruffkat/urlmock.git</developerConnection>
         <url>https://github.com/ruffkat/urlmock</url>
-        <tag>0.0.12</tag>
+        <tag>0.0.3</tag>
     </scm>
 
     <issueManagement>
