@@ -15,8 +15,6 @@ cache:
 
 # Prerequisites
 before_install:
-  # Set up path
-  - export PATH=${PATH}:.
   # TODO: Setup ~/.m2/settings-security.xml
   # Setup the code signing key; it will be used to publish snapshots and releases
   - openssl aes-256-cbc -K $encrypted_59cd562a81f9_key -iv $encrypted_59cd562a81f9_iv
@@ -32,7 +30,7 @@ before_install:
   - git remote add ssh-origin git@github.com:${TRAVIS_REPO_SLUG}.git
 
 # Pre-download all maven dependencies
-install: mvnw -e -B -ntp -settings .mvn/settings.xml -P ossrh dependency:go-offline
+install: mvn -e -B -ntp -s deploy/settings.xml -P ossrh dependency:go-offline
 
 # Integrate the latest and deploy snapshot artifacts to OSSRH. The script
 # returns a success exit code to ensure build proceeds to deploy stage
