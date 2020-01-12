@@ -49,13 +49,14 @@
         <mockito.version>3.2.4</mockito.version>
         <!-- Plugin Versions -->
         <codehaus.versions.version>2.7</codehaus.versions.version>
+        <maven.deploy.version>2.8.2</maven.deploy.version>
         <maven.gpg.version>1.6</maven.gpg.version>
         <maven.jacoco.version>0.8.5</maven.jacoco.version>
         <maven.jar.version>3.2.0</maven.jar.version>
         <maven.javadoc.version>3.1.1</maven.javadoc.version>
         <maven.site.version>3.7.1</maven.site.version>
         <maven.source.version>3.2.1</maven.source.version>
-        <nexus.staging.version>1.6.7</nexus.staging.version>
+        <nexus.staging.version>1.6.8</nexus.staging.version>
         <!-- Build Properties -->
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -184,6 +185,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
+                        <version>${maven.deploy.version}</version>
                         <configuration>
                             <skip>true</skip>
                         </configuration>
