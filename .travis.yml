@@ -24,10 +24,6 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_59cd562a81f9_key -iv $encrypted_59cd562a81f9_iv
     -in deploy/id_rsa.enc -out ~/.ssh/id_rsa -d
   - chmod 400 ~/.ssh/id_rsa
-  # Configure git
-  - git config --local user.name "Travis CI"
-  - git config --local user.email "travis@travis-ci.com"
-  - git remote add ssh-origin git@github.com:${TRAVIS_REPO_SLUG}.git
 
 # Pre-download all maven dependencies
 install: mvn -e -B -ntp -s deploy/settings.xml -P ossrh dependency:go-offline
