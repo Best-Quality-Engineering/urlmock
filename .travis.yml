@@ -35,10 +35,11 @@ install: mvn -e -B -ntp -s deploy/settings.xml -P ossrh dependency:go-offline
 # returns a success exit code to ensure build proceeds to deploy stage
 script: deploy/deploy-branch.sh
 
-# Perform a release when the repository has been tagged
+# Perform a release when the master branch has been tagged
 deploy:
   - provider: script
     script: deploy/release-tag.sh
     cleanup: false
     on:
       tags: true
+      branch: master
