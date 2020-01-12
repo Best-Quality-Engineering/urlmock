@@ -42,6 +42,6 @@ script: deploy/deploy-branch.sh
 deploy:
   - provider: script
     script: deploy/release-tag.sh
-    skip_cleanup: true
+    cleanup: false
     on:
       tags: true
