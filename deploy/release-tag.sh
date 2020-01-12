@@ -28,13 +28,13 @@ echo "Merging release/${TRAVIS_TAG} into master"
 git checkout master
 git pull
 git merge release/${TRAVIS_TAG}
+git push -u origin master
 
 echo "Preparing next development version"
 mvn -e -B -ntp -s deploy/settings.xml -P ossrh release:update-versions
 
-echo "Executing deploy goal next development version"
-mvn -e -B -ntp -s deploy/settings.xml -P ossrh clean deploy
-
+echo "Executing deploy goal on next development version"
+mvn -e -B -ntp -s deploy/settings.xml -P ossrh -DskipTests=true clean deploy
 git add pom.xml
 git commit -m "Next development version (build: ${TRAVIS_BUILD_NUMBER})"
 git push -u origin master
