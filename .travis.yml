@@ -1,4 +1,7 @@
-if: branch !~ /^(release)/
+# Release branches will be ignored
+branches:
+  except:
+    - /^release.*$/
 
 # Host Environment
 os: linux
