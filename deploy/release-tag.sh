@@ -6,8 +6,8 @@ echo "Releasing ${TRAVIS_TAG}"
 echo "Configuring git to release"
 git config --local user.name "Travis CI"
 git config --local user.email "travis@travis-ci.com"
-git config --unset-all remote.origin.fetch
-git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
+git remote remove origin
+git remote add origin git@github.com:${TRAVIS_REPO_SLUG}.git
 git fetch
 
 echo "Creating release branch: release/${TRAVIS_TAG}"
