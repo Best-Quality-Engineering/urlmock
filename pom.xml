@@ -4,7 +4,7 @@
 
     <groupId>io.bestquality</groupId>
     <artifactId>urlmock</artifactId>
-    <version>0.0.18</version>
+    <version>0.0.19-SNAPSHOT</version>
     <name>Url Mock</name>
     <description>Url mocking library for java.net.URL</description>
 
