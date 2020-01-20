@@ -5,3 +5,4 @@ target/
 *.gpg*
 release.properties
 pom.xml.releaseBackup
+deploy/id_rsa
