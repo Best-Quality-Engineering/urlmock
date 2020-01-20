@@ -17,16 +17,20 @@ echo "Setting POM versions to ${TRAVIS_TAG}"
 mvn -e -B -ntp -s deploy/settings.xml -P ossrh -DgenerateBackupPoms=false -DnewVersion=${TRAVIS_TAG} versions:set
 
 echo "Executing deploy goal for ${TRAVIS_TAG}"
+# TODO: abort on failure to deploy due to staging rule violations
 mvn -e -B -ntp -s deploy/settings.xml -P ossrh clean deploy
 
 echo "Updating version references in documentation"
 sed --in-place --regexp-extended --expression="s/(<version>).*(<\/version>)/\1${TRAVIS_TAG}\2/g" README.md
 
 echo "Pushing release/${TRAVIS_TAG}"
-git README.md
+git add README.md
 find . -name pom.xml -exec git add {} \;
 git commit -m "Release ${TRAVIS_TAG} (build: ${TRAVIS_BUILD_NUMBER})"
 git push -u origin release/${TRAVIS_TAG}
+
+echo "Uploading code coverage report for ${TRAVIS_TAG}"
+bash <(curl -s https://codecov.io/bash)
 
 echo "Merging release/${TRAVIS_TAG} into master"
 git checkout master
