@@ -44,7 +44,7 @@
 
     <properties>
         <!-- Dependency Versions -->
-        <assertj.version>3.13.2</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
         <junit.version>4.12</junit.version>
         <mockito.version>3.2.4</mockito.version>
         <!-- Plugin Versions -->
